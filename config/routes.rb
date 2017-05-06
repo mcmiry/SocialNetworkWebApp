@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get 'session/create'
 
   get 'session/destroy'
-
+  
+  resources :messages
   resources :shares
   resources :relationships
   resources :posts
