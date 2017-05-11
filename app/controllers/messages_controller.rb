@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @messages = Message.where('to_user_id = ?', session[:current_user_id])
   end
 
   # GET /messages/1
@@ -26,13 +26,18 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
 
-    respond_to do |format|
+    @message.from_user_id = session[:current_user_id]
+    @user = User.where('nick = ?', message_params[:to_user_id])
+    if @user.blank?
+      redirect_to messages_url, notice: 'User must exists.'
+    else
+      @message.to_user_id = @user.first.id
+      @message.status = "Send"
+
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
-        format.json { render :show, status: :created, location: @message }
+        redirect_to messages_url
       else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        render :new
       end
     end
   end
@@ -54,10 +59,19 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
-    @message.destroy
-    respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
-      format.json { head :no_content }
+    if Message.destroy(@message.id)
+      redirect_to messages_url, notice: 'Message was successfully destroyed.'
+    else
+      redirect_to messages_url, notice: @message.errors
+    end
+  end
+
+  def delete
+    message = Message.where('id = ?', params[:id]).first
+    if Message.destroy(message.id)
+      redirect_to messages_url
+    else
+      redirect_to messages_url, notice: 'Message was not successfully destroyed.'
     end
   end
 
@@ -69,6 +83,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:from_user_id, :to_user, :references, :subject, :string, :text, :string, :status, :string)
+      params.require(:message).permit(:from_user_id, :to_user_id, :subject, :text, :status)
     end
 end

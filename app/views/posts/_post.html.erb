@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag "post" %>
+
+<div class="main">
+  <ul class="cbp_tmtimeline">
+    <li>
+      <time class="cbp_tmtime" datetime="2017-01-10 18:30"><span>1/1/17</span> <span>18:30</span></time>
+      <div class="cbp_tmicon cbp_tmicon-phone"><img src="http://lanyon.com/Images/Icon-Images/Lanyon_Mobile_icon_Core_Features.aspx" class="img-responsive" width="40px"></div>
+      <div class="cbp_tmlabel">
+        <h2>Ricebean black-eyed pea</h2>
+        <p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress. Pea sprouts wattle seed rutabaga okra yarrow cress avocado grape radish bush tomato ricebean black-eyed pea maize eggplant. Cabbage lentil cucumber chickpea sorrel gram garbanzo plantain lotus root bok choy squash cress potato summer purslane salsify fennel horseradish dulse. Winter purslane garbanzo artichoke broccoli lentil corn okra silver beet celery quandong. Plantain salad beetroot bunya nuts black-eyed pea collard greens radish water spinach gourd chicory prairie turnip avocado sierra leone bologi.</p>
+      </div>
+    </li>
+    <% @posts.each do |post| %>
+    <li>
+      <time class="cbp_tmtime" datetime=<%= post.created_at.to_s %>><span><%= post.created_at.to_date.to_s %></span> <span>18:53</span></time>
+      <div class="cbp_tmicon cbp_tmicon-phone"><img src=<%= post.user.profile_picture %> class="profile-userpic-mini" width="40px"></div>
+      <div class="cbp_tmlabel">
+        <h2><%= post.user.nick %></h2>
+        <p><%= post.text %></p>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,49 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "message" %>
 
-<p>
-  <strong>From user:</strong>
-  <%= @message.from_user %>
-</p>
+<div class="col-lg-3">
+  <%= render partial: "shared/sidemenu" %>
+</div>
 
-<p>
-  <strong>To user:</strong>
-  <%= @message.to_user %>
-</p>
+<div class="col-lg-9">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>References:</strong>
-  <%= @message.references %>
-</p>
-
-<p>
-  <strong>Subject:</strong>
-  <%= @message.subject %>
-</p>
-
-<p>
-  <strong>String:</strong>
-  <%= @message.string %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @message.text %>
-</p>
-
-<p>
-  <strong>String:</strong>
-  <%= @message.string %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @message.status %>
-</p>
-
-<p>
-  <strong>String:</strong>
-  <%= @message.string %>
-</p>
-
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+  <label style="margin-left: 20px !important;"><font size=6 color="#00bfee">Message</font></label>
+  <div style="background: #ffffff; border-radius: 20px; padding: 15px; margin-left: 20px; margin-right: 30px; ">
+    <div class="row message-rows">
+      <div class="col-lg-2"><label style="margin-left: 20px !important;"><font size=4 color="#55b2f4">From</font></label></div>
+      <div class="col-lg-9">@<%= @message.from_user.nick %></div>
+    </div>
+    <div class="row message-rows">
+      <div class="col-lg-2"><label style="margin-left: 20px !important;"><font size=4 color="#55b2f4">Subject</font></label></div>
+      <div class="col-lg-9"><%= @message.subject %></div>
+    </div>
+    <div class="row message-rows">
+      <div class="col-lg-2"><label style="margin-left: 20px !important;"><font size=4 color="#55b2f4">Message</font></label></div>
+      <div class="col-lg-9"><%= @message.text %></div>
+    </div>
+  </div>
+  <%= link_to 'Back', messages_path, class: "btn btn-info col-lg-offset-8 btn-back" %>
+  <%= link_to 'Delete', delete_message_path(@message.id), class: "btn btn-info btn-back" %>
+</div>

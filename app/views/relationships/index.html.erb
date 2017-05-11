@@ -1,31 +1,58 @@
-<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "index_user" %>
 
-<h1>Relationships</h1>
+<div class="col-lg-3">
+  <%= render partial: "shared/sidemenu" %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>User1</th>
-      <th>User2</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="col-lg-9">
+  <%= link_to 'Add more friends', users_path, class: "btn btn-info col-lg-offset-10" %>
 
-  <tbody>
-    <% @relationships.each do |relationship| %>
-      <tr>
-        <td><%= relationship.user1 %></td>
-        <td><%= relationship.user2 %></td>
-        <td><%= relationship.status %></td>
-        <td><%= link_to 'Show', relationship %></td>
-        <td><%= link_to 'Edit', edit_relationship_path(relationship) %></td>
-        <td><%= link_to 'Destroy', relationship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <% @relationshipsP.each do |relationshipP| %>
+    <div class="row">
+      <label style="margin-left: 40px !important;"><font size=6 color="#00bfee">Pending Friendship Requests</font></label>
+    </div>
+    <div class="row row-margin my-row">
+      <div class="col-lg-3 profile-userpic-users">
+        <img src=<%= relationshipP.user1.profilepic %> >
+      </div>
+      <div class="col-lg-7">
+        <div class="profile-usertitle-name-users">
+          <%= relationshipP.user1.name %> <%= relationshipP.user1.surname %>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Show', relationshipP.user1, class: 'btn btn-info my-btn'  %>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Accept', accept_friend_path(relationshipP.user1.id), class: 'btn btn-info my-btn'  %>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Cancel', deny_friend_path(relationshipP.user1.id), class: 'btn btn-info my-btn'  %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-<br>
+  <div class="row">
+    <label style="margin-left: 40px !important;"><font size=6 color="#00bfee">My Friends</font></label>
+  </div>
+  <% @relationships.each do |relationship| %>
+    <div class="row row-margin my-row">
+      <div class="col-lg-3 profile-userpic-users">
+        <img src=<%= relationship.user2.profilepic %> >
+      </div>
+      <div class="col-lg-7">
+        <div class="profile-usertitle-name-users">
+          <%= relationship.user2.name %> <%= relationship.user2.surname %>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Show', relationship.user2, class: 'btn btn-info my-btn'  %>
+        </div>
+        <div class="col-lg-4">
+          <%= link_to 'Unfollow', unfriend_path(relationship.user2.id), class: 'btn btn-info my-btn'  %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to 'New Relationship', new_relationship_path %>
+

@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag "new_post" %>
+
+<%= form_for(post) do |f| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="main">
+    <ul class="cbp_tmtimeline">
+      <li>
+        <% if Time.now.min < 9 %>
+          <time class="cbp_tmtime" datetime=<%= Time.now %>><span><%= Time.now.day.to_s %>/<%= Time.now.month.to_s %>/<%= Time.now.year.to_s %></span> <span><%= Time.now.hour.to_s %>:0<%= Time.now.min.to_s%></span></time>
+        <% else %>
+          <time class="cbp_tmtime" datetime=<%= Time.now %>><span><%= Time.now.day.to_s %>/<%= Time.now.month.to_s %>/<%= Time.now.year.to_s %></span> <span><%= Time.now.hour.to_s %>:<%= Time.now.min.to_s%></span></time>
+        <% end %>
+        <div class="cbp_tmlabel">
+          <h2>@<%= User.find(session[:current_user_id]).nick %></h2>
+          <div class="form-group">
+              <%= f.text_area :text, rows: 4, class: "form-control" %>
+          </div>
+          <div class="row my-row">
+            <%= link_to 'Cancel', posts_path, class: "btn btn-link col-lg-offset-9 my-link" %>
+            <%= f.submit "Save", class: "btn btn-link my-link" %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+<% end %>

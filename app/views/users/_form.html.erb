@@ -1,52 +1,50 @@
-<%= form_for(user) do |f| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div class="row" id = "mainContentInit" style="margin-top: 50px;">
+  <div id="logo" class="col-lg-6 hidden-xs">
+    <div class="row text-center" id="image">
+      <img src="/images/glow.png">
+    </div>
+  </div>
+    <div id="registerData" class="form-horizontal col-lg-6 col-xs-12">
+    <%= form_for(user) do |f| %>
+      <% if user.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+
+      <label><font size=6 color="#00bfee">Create an account</font></label>
+      <div class="row form-group">
+        <div class="col-lg-4 col-xs-6 text-center">
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+        </div>
+        <div class="col-lg-4 col-xs-6 text-center">
+          <%= f.text_field :surname, class: 'form-control', placeholder: 'Surname' %>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-lg-8 col-xs-12 text-center">
+          <%= f.text_field :nick, class: 'form-control', placeholder: 'Nick' %>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-lg-8 col-xs-12 text-center">
+          <%= f.text_field :email, class: 'form-control', placeholder: 'Email' %>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-lg-8 col-xs-12 text-center">
+          <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+        </div>
+      </div>
+      <div class="row form-group" id="bottomPart">
+        <div class="col-lg-3 col-xs-6 text-center col-lg-offset-5">
+          <%= f.submit "Sign up", class: 'btn btn-info btn-lg'%>
+        </div>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :surname %>
-    <%= f.text_field :surname %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.text_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :nick %>
-    <%= f.text_field :nick %>
-  </div>
-
-  <div class="field">
-    <%= f.label :profilepic %>
-    <%= f.text_field :profilepic %>
-  </div>
-
-  <div class="field">
-    <%= f.label :role %>
-    <%= f.number_field :role %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

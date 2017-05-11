@@ -1,39 +1,34 @@
+<%= stylesheet_link_tag "show_user" %>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Surname:</strong>
-  <%= @user.surname %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
-  <strong>Nick:</strong>
-  <%= @user.nick %>
-</p>
-
-<p>
-  <strong>Profilepic:</strong>
-  <%= @user.profilepic %>
-</p>
-
-<p>
-  <strong>Role:</strong>
-  <%= @user.role %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="row">
+  <div class="col-lg-3 col-lg-offset-1 profile-userpic">
+    <!-- <img src= <%= @user.profilepic %> width="100px"> -->
+    <img src=<%= @user.profilepic %> width="150px">
+  </div>
+  <div class="col-lg-7 my-col">
+    <div class="row profile-usertitle-name">
+      <%= @user.name %> <%= @user.surname %>
+    </div>
+    <div class="row profile-usertitle-nick">
+      <div class="col-lg-2">
+        @<%= @user.nick %>
+      </div>
+      <div class="col-lg-3 col-lg-offset-2">
+        <%= @user.email %>
+      </div>
+    </div>
+    <div class="row buttons">
+      <div class="col-lg-3">
+        <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-info my-btn' %>
+      </div>
+      <div class="col-lg-3">
+        <%= link_to 'Delete Account', delete_user_path(@user.id), class: 'btn btn-info my-btn' %>
+      </div>
+      <div class="col-lg-3">
+        <%= link_to 'Go Home', posts_path, class: 'btn btn-info my-btn' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,8 @@
-<h1>New Post</h1>
+<!-- <h1><%= session[:current_user_id]%></h1> -->
 
-<%= render 'form', post: @post %>
-
-<%= link_to 'Back', posts_path %>
+<div class="col-lg-3">
+    <%= render partial: "shared/sidemenu" %>
+</div>
+<div class="col-lg-9">
+    <%= render 'form', post: @post %>
+</div>

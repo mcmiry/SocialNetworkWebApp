@@ -1,8 +1,8 @@
+<%= stylesheet_link_tag "message" %>
+
 <%= form_for(message) do |f| %>
   <% if message.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
-
+    <div id="error_explanation" class="alert alert-danger">
       <ul>
       <% message.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,52 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :from_user_id %>
-    <%= f.text_field :from_user_id %>
-  </div>
+  <div id="registerData" class="form-horizontal col-lg-12 col-xs-12">
+    <label><font size=6 color="#00bfee">New message</font></label>
 
-  <div class="field">
-    <%= f.label :to_user %>
-    <%= f.text_field :to_user %>
-  </div>
-
-  <div class="field">
-    <%= f.label :references %>
-    <%= f.text_field :references %>
-  </div>
-
-  <div class="field">
-    <%= f.label :subject %>
-    <%= f.text_field :subject %>
-  </div>
-
-  <div class="field">
-    <%= f.label :string %>
-    <%= f.text_field :string %>
-  </div>
-
-  <div class="field">
-    <%= f.label :text %>
-    <%= f.text_field :text %>
-  </div>
-
-  <div class="field">
-    <%= f.label :string %>
-    <%= f.text_field :string %>
-  </div>
-
-  <div class="field">
-    <%= f.label :status %>
-    <%= f.text_field :status %>
-  </div>
-
-  <div class="field">
-    <%= f.label :string %>
-    <%= f.text_field :string %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+    <div class="row form-group">
+      <div class="col-lg-11 col-xs-6 text-center">
+        <%= f.text_field :to_user_id, class: 'form-control', placeholder: 'To..' %>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-lg-11 col-xs-6 text-center">
+        <%= f.text_field :subject, class: 'form-control', placeholder: 'Subject' %>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-lg-11 col-xs-6 text-center">
+        <%= f.text_area :text, rows: 5, class: 'form-control', placeholder: 'Message' %>
+      </div>
+    </div>
+    <div class="row form-group" id="bottomPart">
+      <div class="col-lg-2 col-xs-6 text-center col-lg-offset-7">
+        <%= link_to "Cancel", messages_path, class: 'btn btn-info btn-lg my-btn-show'%>
+      </div>
+      <div class="col-lg-2 col-xs-6 text-center">
+        <%= f.submit "Send", class: 'btn btn-info btn-lg my-btn-show'%>
+      </div>
+    </div>
   </div>
 <% end %>

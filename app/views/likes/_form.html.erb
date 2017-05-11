@@ -1,10 +1,8 @@
-<%= form_for(share) do |f| %>
-  <% if share.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(share.errors.count, "error") %> prohibited this share from being saved:</h2>
-
+<%= form_for(like) do |f| %>
+  <% if like.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
       <ul>
-      <% share.errors.full_messages.each do |message| %>
+      <% like.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

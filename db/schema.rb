@@ -10,13 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425154048) do
+ActiveRecord::Schema.define(version: 20170510212932) do
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.string   "subject"
+    t.string   "text"
+    t.string   "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["from_user_id"], name: "index_messages_on_from_user_id"
+    t.index ["to_user_id"], name: "index_messages_on_to_user_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "text"
     t.string   "image"
-    t.integer  "like"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -32,15 +52,6 @@ ActiveRecord::Schema.define(version: 20170425154048) do
     t.index ["user2_id"], name: "index_relationships_on_user2_id"
   end
 
-  create_table "shares", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_shares_on_post_id"
-    t.index ["user_id"], name: "index_shares_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "surname"
@@ -51,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170425154048) do
     t.integer  "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "active"
   end
 
 end

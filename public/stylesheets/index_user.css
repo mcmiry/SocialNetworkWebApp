@@ -1,0 +1,33 @@
+.my-row:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
+.profile-userpic-users img {
+  float: none;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-left: 15px; 
+  width: 180px !important;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.profile-usertitle-name-users {
+  color: #000000;
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 60px;
+}
+
+.my-btn {
+  margin-left: 15%;
+  width: 130px;
+}
+
+.row-margin {
+  margin-left: 40px;
+  margin-right: 40px;
+}

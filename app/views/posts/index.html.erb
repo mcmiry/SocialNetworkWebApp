@@ -1,33 +1,51 @@
-<p id="notice"><%= notice %></p>
+  <%= stylesheet_link_tag "post" %>
 
-<h1>Posts</h1>
+  <% if session[:current_user_id] == nil %>
+    <script type="text/javascript">
+      window.location.href="/login"
+    </script>
+  <% else %>
+    <% @user = User.find(session[:current_user_id]) %>
+    
+    <div class="col-lg-3">
+      <%= render partial: "shared/sidemenu" %>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Text</th>
-      <th>Image</th>
-      <th>Like</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <div class="col-lg-9">
+      <p id="notice"><%= notice %></p>
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.user %></td>
-        <td><%= post.text %></td>
-        <td><%= post.image %></td>
-        <td><%= post.like %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div class="main">
+        <ul class="cbp_tmtimeline">
+          <% @posts.each do |post| %>
+          <li>
+            <% if post.created_at.min < 9 %>
+              <time class="cbp_tmtime" datetime=<%= post.created_at.to_s %>><span><%= post.created_at.day.to_s %>/<%= post.created_at.month.to_s %>/<%= post.created_at.year.to_s %></span> <span><%= post.created_at.hour.to_s %>:0<%= post.created_at.min.to_s %></span></time>
+            <% else %>
+              <time class="cbp_tmtime" datetime=<%= post.created_at.to_s %>><span><%= post.created_at.day.to_s %>/<%= post.created_at.month.to_s %>/<%= post.created_at.year.to_s %></span> <span><%= post.created_at.hour.to_s %>:<%= post.created_at.min.to_s %></span></time>
+            <% end %>
+            <div class="cbp_tmicon cbp_tmicon-phone"><img src=<%= post.user.profilepic %> class="profile-userpic-mini"></div>
+            <div class="cbp_tmlabel">
+              <h2>@<%= post.user.nick %></h2>
+              <p><%= post.text %></p>
+              <div class="col-lg-2 like">
+                <%= link_to '<img src="/images/like1.png" width="24px">'.html_safe, like_post_path(post.id)%>
+                <label class="label-like"><%= Like.where('post_id = ?', post.id).count %></label>
+              </div>
+              <% if post.user.id == @user.id || @user.role == 0 %>
+                <%= link_to '<img src="/images/edit.png" width="24px">'.html_safe, edit_post_path(post), class: "col-lg-1 my-col edit" %>
+                <%= link_to '<img src="/images/delete.png" width="24px">'.html_safe, delete_post_path(post.id), data: { confirm: 'Are you sure?' }, class: "col-lg-1 my-col edit" %>
+                <%= link_to '<img src="/images/share.png" width="24px">'.html_safe, share_path(post.id), class: "col-lg-1 col-lg-offset-6"%>
+              <% else %>
+                <%= link_to '<img src="/images/share.png" width="24px">'.html_safe, share_path(post.id), class: "col-lg-1 col-lg-offset-8"%>
+              <% end %>
+              
+            </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+  
+      

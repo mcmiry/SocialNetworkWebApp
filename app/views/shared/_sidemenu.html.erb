@@ -1,0 +1,42 @@
+<%= stylesheet_link_tag "sidemenu" %>
+
+<% @user = User.find(session[:current_user_id]) %>
+
+<div class="profile-sidebar">
+	<!-- SIDEBAR USERPIC -->
+	<div class="profile-userpic">
+		<img src=<%= @user.profilepic %> class="img-responsive" alt="">
+	</div>
+	<!-- END SIDEBAR USERPIC -->
+	<!-- SIDEBAR USER TITLE -->
+	<div class="profile-usertitle">
+		<div class="profile-usertitle-name">
+			<%= @user.name %> <%= @user.surname %>
+		</div>
+		<div class="profile-usertitle-nick">
+			@<%= @user.nick %>
+		</div>
+		<!-- <div class="profile-usertitle-bio">
+			Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+		</div> -->
+		<div>
+			<%= link_to '<img src="/images/new_post.png" width="20px"> New Post'.html_safe, new_post_path, class: "btn btn-info" %>
+		</div>
+	</div>
+	<!-- END SIDEBAR BUTTONS -->
+	<!-- SIDEBAR MENU -->
+	<div class="profile-usermenu">
+		<ul class="nav">
+			<li>
+				<%= link_to '<i class="glyphicon glyphicon-home"></i>Profile'.html_safe, @user %>
+			</li>
+			<li>
+				<%= link_to '<i class="glyphicon glyphicon-user"></i>Messages'.html_safe, messages_path %>
+			</li>
+			<li>
+				<%= link_to '<i class="glyphicon glyphicon-ok"></i>Friends'.html_safe, relationships_path %>
+			</li>
+		</ul>
+	</div>
+	<!-- END MENU -->
+</div>
